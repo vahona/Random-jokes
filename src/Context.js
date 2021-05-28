@@ -18,6 +18,7 @@ function ContextProvider({ children }) {
 
 
     let URL_API1 = URL_API + numbers + URL_API_CATEGORY
+    let URL_CATEGORY = URL_API_CATEGORY + catego
 
     const randomeJoke = async () => {
         try {
@@ -29,13 +30,29 @@ function ContextProvider({ children }) {
         }
     };
 
+    const categoryList = async () => {
+        try {
+            const response = await fetch(URL_CATEGORY);
+            const dataCategory = await response.json();
+            setCategory([dataCategory]);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     useEffect(() => {
         randomeJoke();
+        categoryList()
     }, []);
 
 
     return (
-        <Contex.Provider value={{ num, jokes, setJokes, setNum, randomeJoke }}>
+        <Contex.Provider value={{
+            num,
+            jokes,
+            category,
+            randomeJoke
+        }}>
             {children}
         </Contex.Provider>
     )

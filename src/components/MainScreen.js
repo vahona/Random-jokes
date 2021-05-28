@@ -1,21 +1,22 @@
 import react, { useContext } from 'react'
 import { Contex } from '../Context'
 import Select from 'react-select'
-// import Chuck from '../assets/Chuck-Norris-photo.jpg'
+import Chuck from '../assets/Chuck-Norris-photo.jpg'
 
 function MainScreen() {
-    const { num, jokes, setJokes, setNum, randomeJoke } = useContext(Contex)
-
-
-    const options = [{ value: "kk", label: "kk" }, { value: "ll", label: "ll" }, { value: "oo", label: "oo" }]
-
+    const { jokes, category,  } = useContext(Contex)
+    const options = category.map((item) => { 
+        const firstCategory = item.value[0]
+        const secondCategory = item.value[1]
+        return [{ value: firstCategory, label: firstCategory }, { value: secondCategory, label: secondCategory }]
+    })    
     return (
         <div>
-            {/* <img src={Chuck} alt={chuck}/> */}
+            <img src={Chuck}/>
             {jokes.map((joke) => {
             return (<div key={joke.value[0].id}>"{joke.value[0].joke}"</div>)})}
             <form>
-                <Select options={options}/>
+                <Select options={options[0]} />
             </form>
             <input/>
             <div>
