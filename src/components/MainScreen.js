@@ -12,12 +12,22 @@ import {
     Button, 
     ButtonSubContainer,
     Image,
-    Input
+    Input,
+    Form,
+    DrawButtonContainer,
+    SaveButton,
+    TextContainer,
+    DrawButton,
+    MainContainer,
+    IncreaseNumber
  } 
 from "../components/Style";
+import styled from 'styled-components';
 
 function MainScreen() {
     const {
+            loading,
+            setLoading,
             jokes,
             category,
             firstName,
@@ -28,6 +38,9 @@ function MainScreen() {
             setLastName,
          }
      = useContext(Contex)
+
+
+   
     
     const options = category.map((item) => { 
         const firstCategory = item.value[0]
@@ -36,32 +49,51 @@ function MainScreen() {
     }) 
 
     const  inputChange = (e) => {
-       
         setInputValue(prevValue => {
             const newValue  = e.target.value
             return { firstName: newValue, lastName: newValue }})
     }
+
+
+   
+  
+    const Styles = {
+        control: base => ({
+            ...base,
+            height: 58,
+            minHeight: 35,
+            
+        })
+    };
     
     return (
         <Container>
+            <MainContainer>
             <Image src={Chuck}/>
             {jokes.map((joke) => {
-            return (<div key={joke.value[0].id}>"{joke.value[0].joke}"</div>)})}
-            <form>
-                <Select options={options[0]} />
-            </form>
+                return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)})}
+            <Form>
+                <Select 
+                styles={Styles}
+                options={options[0]} 
+                components={{
+                    IndicatorSeparator: () => null
+                }}
+                />
+            </Form>
             <Input placeholder="Impersonate Chuck Norris" onChange={inputChange}/>
-            <div>
-               <button>Draw a random Chuck Norris joke</button>
-            </div>
+            <DrawButtonContainer>
+                <DrawButton> Draw a random Chuck Norris joke </DrawButton>
+            </DrawButtonContainer>
             <ButtonContainer>
                <ButtonSubContainer>
-                    <Button> <img src={Minus} /></Button>
-                   <div> 0 </div>
-                    <Button><img src={Plus} /></Button>
+                    <Button> <img src={Minus} /> </Button>
+                        <IncreaseNumber> 0 </IncreaseNumber>
+                    <Button> <img src={Plus} /> </Button>
                 </ButtonSubContainer>
-                <button>Save Jokes </button>
+                <SaveButton> Save Jokes </SaveButton>
             </ButtonContainer>
+            </MainContainer>
         </Container>
     )
 }
