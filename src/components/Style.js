@@ -57,10 +57,12 @@ export const SaveButton = styled.button`
 `
 
 export const Input = styled.input`
-    width: 98%;
+    width: 94.5%;
     height:49px;
     margin-top: 2.3%;
-    border: 1.5px solid gainsboro
+    border: 1.5px solid gainsboro;
+    padding-left: 3.5%;
+    
 `
 
 export const ButtonContainer = styled.div`
