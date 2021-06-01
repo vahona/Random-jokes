@@ -26,8 +26,8 @@ import styled from 'styled-components';
 
 function MainScreen() {
     const {
-            loading,
-            setLoading,
+            isloading,
+            setIsloading,
             jokes,
             category,
             firstName,
@@ -70,8 +70,8 @@ function MainScreen() {
         <Container>
             <MainContainer>
             <Image src={Chuck}/>
-            {jokes.map((joke) => {
-                return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)})}
+            { isloading === false ? jokes.map((joke) => {
+                return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)}) : <div> Loading...</div> }
             <Form>
                 <Select 
                 styles={Styles}

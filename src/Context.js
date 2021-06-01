@@ -4,7 +4,7 @@ import { useParams } from 'react-dom';
 const Contex = React.createContext()
 
 function ContextProvider({ children }) {
-    const [loading, setLoading] = useState('')
+    const [isloading, setIsloading] = useState(true)
     const [jokes, setJokes] = useState([])
     const [num, setNum] = useState(1)
     const [category, setCategory] = useState([])
@@ -32,16 +32,6 @@ function ContextProvider({ children }) {
     let URL_API1 = URL_API + numbers + URL_API_CATEGORY + URL_API_FIRSTNAME + URL_API_LASTNAME
     let URL_CATEGORY = URL_API_CATEGORY + catego
 
-    const loadData = () => {
-        if (loading == '') {
-            return loading
-        }
-
-        else {
-
-        }
-    }
-
     const randomeJoke = async () => {
         try {
             const response = await fetch(URL_API1);
@@ -67,14 +57,14 @@ function ContextProvider({ children }) {
     useEffect(() => {
         randomeJoke();
         categoryList();
-        setLoading()
+        setTimeout(() => setIsloading(false), 1000)
     }, []);
 
 
     return (
         <Contex.Provider value={{
-            loading,
-            setLoading,
+            isloading,
+            setIsloading,
             num,
             jokes,
             category,
@@ -85,6 +75,7 @@ function ContextProvider({ children }) {
             setFirstName,
             setInputValue,
             setLastName,
+
         }}>
             {children}
         </Contex.Provider>
