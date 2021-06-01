@@ -6,6 +6,7 @@ import Minus from '../assets/minus.svg';
 import Plus from "../assets/plus.svg";
 
 
+
 import { 
     ButtonContainer, 
     Container, 
@@ -19,10 +20,13 @@ import {
     TextContainer,
     DrawButton,
     MainContainer,
-    IncreaseNumber
+    IncreaseNumber,
+    Icon,
+    useStyles,
+    Label
  } 
 from "../components/Style";
-import styled from 'styled-components';
+
 
 function MainScreen() {
     const {
@@ -65,6 +69,8 @@ function MainScreen() {
             
         })
     };
+
+    const classes = useStyles()
     
     return (
         <Container>
@@ -81,15 +87,18 @@ function MainScreen() {
                 }}
                 />
             </Form>
-            <Input placeholder="Impersonate Chuck Norris" onChange={inputChange}/>
+            <div className={classes.floatingLabelWrap}>
+               <Input  onChange={inputChange}/>
+                <Label className={classes.label}>Impersonate Chuck Norris</Label>
+            </div>
             <DrawButtonContainer>
                 <DrawButton> Draw a random Chuck Norris joke </DrawButton>
             </DrawButtonContainer>
             <ButtonContainer>
                <ButtonSubContainer>
-                    <Button> <img src={Minus} /> </Button>
+                    <Button> <Icon src={Minus} /> </Button>
                         <IncreaseNumber> 0 </IncreaseNumber>
-                    <Button> <img src={Plus} /> </Button>
+                    <Button> <Icon src={Plus} /> </Button>
                 </ButtonSubContainer>
                 <SaveButton> Save Jokes </SaveButton>
             </ButtonContainer>

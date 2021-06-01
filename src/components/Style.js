@@ -1,7 +1,53 @@
 import styled from "styled-components";
 
+import { createUseStyles } from 'react-jss'
+
+
+export const useStyles = createUseStyles({
+    floatingLabelWrap: {
+        display: "flex",
+        flexDirection: 'column',
+        position: "relative",
+        transformOrigin: 'top left',
+        transition: "all 0.5s ease-out",
+        "&:focus-within label": {
+            transform: "translate(0, 12px) scale(0.75)"
+        }
+
+
+    },
+
+    input: {
+        position: "absolute",
+        transform: "translate(0, 26px) scale(1)",
+    },
+
+    label: {
+        position: "absolute",
+        transform: "translate(0, 26px) scale(1)",
+        color: "#c4c4c4",
+        fontSize: '16px'
+    }
+
+
+})
+
+export const Label = styled.label`
+    font-size: 16px;
+    padding-left: 16px;
+    font-weight: normal;
+    text-align: left;
+    letter-spacing: -0.52px;
+`
+
 export const IncreaseNumber = styled.div`
-  margin: 11px;
+  margin: 2%;
+  margin-top: 11px;
+`
+
+export const Icon = styled.img`
+  width: 24px;
+  height: 24px;
 `
 
 export const MainContainer = styled.div`
@@ -28,16 +74,24 @@ export const ButtonSubContainer = styled.div`
     height: 45px;
     width: 26.3%;
     justify-content: center;
+    
 
 `
 
 export const DrawButton = styled.button`
- width : 100%;
- background-color: #34394f;
- border: none;
- color: #fff;
- height: 58px;
-
+    width : 100%;
+    background-color: #34394f;
+    border: none;
+    color: #fff;
+    height: 58px;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.63;
+    letter-spacing: -0.52px;
+    text-align: center;
+    
 `
 
 export const Image = styled.img`
@@ -68,8 +122,6 @@ export const Input = styled.input`
 export const ButtonContainer = styled.div`
     display: flex;
     width: 100%;
-    
-
 `
 
 export const DrawButtonContainer = styled.div`
