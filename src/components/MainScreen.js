@@ -33,34 +33,32 @@ function MainScreen() {
             isloading,
             setIsloading,
             jokes,
-            category,
+            categories,
             firstName,
             inputValue,
             lastName,
             setFirstName,
             setInputValue,
             setLastName,
+            setCategories
          }
      = useContext(Contex)
 
 
-   
     
-    const options = category.map((item) => { 
-        const firstCategory = item.value[0]
-        const secondCategory = item.value[1]
-        return [{ value: firstCategory, label: firstCategory }, { value: secondCategory, label: secondCategory }]
+    const options = categories.map((item) => { 
+        return { value: item, label: item }
     }) 
-
     const  inputChange = (e) => {
-        setInputValue(prevValue => {
-            const newValue  = e.target.value
-            return { firstName: newValue, lastName: newValue }})
+        const newValue = e.target.value
+        setInputValue({ firstName: newValue, lastName: newValue })
     }
 
+    const onSelectionChange = (e) => {
+        const newValue = e.value
+        setCategories([newValue])
+    }
 
-   
-  
     const Styles = {
         control: base => ({
             ...base,
@@ -81,14 +79,15 @@ function MainScreen() {
             <Form>
                 <Select 
                 styles={Styles}
-                options={options[0]} 
+                options={options} 
                 components={{
                     IndicatorSeparator: () => null
                 }}
+                onChange={onSelectionChange}
                 />
             </Form>
             <div className={classes.floatingLabelWrap}>
-               <Input  onChange={inputChange}/>
+                <Input  onChange={inputChange}/>
                 <Label className={classes.label}>Impersonate Chuck Norris</Label>
             </div>
             <DrawButtonContainer>

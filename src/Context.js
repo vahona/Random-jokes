@@ -3,38 +3,67 @@ import { useParams } from 'react-dom';
 
 const Contex = React.createContext()
 
+const getUrl = (firstName, lastName, category, numberOfJokes) => {
+
+    const URL_PREFIX = `http://api.icndb.com/jokes/random`
+    // To do
+    // 1- input field empty / Get random jokes
+
+    if (firstName === '' && lastName === '' && category.length < 1 && numberOfJokes === 1) {
+
+        return URL_PREFIX + '/1'
+    }
+
+    // 2- Category selected 
+
+    else if (category.length) {
+        debugger
+        return URL_PREFIX + '/1' + `?exclude=${category}`
+    }
+    // 3- Impersonate joke/ input field 
+    // 4- Number selected
+    // http://api.icndb.com/jokes/random?exclude=[nerdy] 
+    let URL_API = `http://api.icndb.com/jokes/random/`
+    let URL_API_FIRSTNAME = `firstName=${firstName}`
+    let URL_API_LASTNAME = `&lastName=${lastName}`
+
+    let URL_API_CATEGORY = `http://api.icndb.com/categories`
+    // const catego = `${category}`
+    // const numberOfJokes = `${num}`
+}
+
 function ContextProvider({ children }) {
     const [isloading, setIsloading] = useState(true)
     const [jokes, setJokes] = useState([])
-    const [num, setNum] = useState(1)
-    const [category, setCategory] = useState([])
+    const [numberOfJokes, setNumberOfJokes] = useState(1)
+    const [categories, setCategories] = useState([])
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [inputValue, setInputValue] = useState({ firstName: '', lastName: '' })
 
-    // console.log(inputValue);
+
 
     // Fetching data
-
-    let URL = `http://api.icndb.com/jokes/random?`
+    // let URL = `http://api.icndb.com/jokes/random?`
 
     let URL_API = `http://api.icndb.com/jokes/random/`
     let URL_API_FIRSTNAME = `firstName=${firstName}`
     let URL_API_LASTNAME = `&lastName=${lastName}`
-    // const firstname = `${firstName}`
-    // const lastname = `${lastName}`
+
     let URL_API_CATEGORY = `http://api.icndb.com/categories`
-    const catego = `${category}`
-    const numbers = `${num}`
+    const catego = `${categories}`
 
 
 
-    let URL_API1 = URL_API + numbers + URL_API_CATEGORY + URL_API_FIRSTNAME + URL_API_LASTNAME
+
+    let URL_API1 = URL_API + numberOfJokes + URL_API_CATEGORY + URL_API_FIRSTNAME + URL_API_LASTNAME
     let URL_CATEGORY = URL_API_CATEGORY + catego
 
     const randomeJoke = async () => {
         try {
-            const response = await fetch(URL_API1);
+            const URL = getUrl(firstName, lastName, categories, numberOfJokes)
+            console.log("oo", URL);
+            const response = await fetch(URL);
             const data = await response.json();
             setJokes([data]);
         } catch (e) {
@@ -46,12 +75,12 @@ function ContextProvider({ children }) {
         try {
             const response = await fetch(URL_CATEGORY);
             const dataCategory = await response.json();
-            setCategory([dataCategory]);
+            debugger
+            setCategories(dataCategory.value);
         } catch (e) {
             console.error(e);
         }
     };
-
 
 
     useEffect(() => {
@@ -65,9 +94,9 @@ function ContextProvider({ children }) {
         <Contex.Provider value={{
             isloading,
             setIsloading,
-            num,
+            numberOfJokes,
             jokes,
-            category,
+            categories,
             randomeJoke,
             firstName,
             inputValue,
@@ -75,6 +104,7 @@ function ContextProvider({ children }) {
             setFirstName,
             setInputValue,
             setLastName,
+            setCategories
 
         }}>
             {children}

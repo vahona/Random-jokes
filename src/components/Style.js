@@ -61,8 +61,11 @@ export const BodyContainer = styled.div`
 `
 
 export const TextContainer = styled.div`
-  width: 100%;
-  margin-top: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 600;
 `
 
 export const ButtonSubContainer = styled.div`
