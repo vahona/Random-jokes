@@ -89,9 +89,17 @@ function MainScreen() {
     return (
         <Container>
             <MainContainer>
-                {inputValue.firstName === '' && inputValue.lastName === '' ? <Image src={Chuck} /> : <Image src={ RandomPhoto }/>}
-            { isloading === false ? jokes.map((joke) => {
-                return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)}) : <div> Loading...</div> }
+                {inputValue.firstName === '' 
+                && inputValue.lastName === '' ?
+                <Image src={Chuck} /> :
+                <Image src={ RandomPhoto }/>
+                }
+               {isloading === false ?
+                jokes.map((joke) => {
+                return (<TextContainer key={joke.value[0].id}>
+                    "{joke.value[0].joke}"
+                    </TextContainer>)}) :
+                    <div> Loading...</div> }
             <Form>
                 <Select 
                 styles={Styles}

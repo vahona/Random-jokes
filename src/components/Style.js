@@ -60,7 +60,6 @@ export const IncreaseNumber = styled.input`
 
      @media (max-width: 550px) {
      width: 11px;
-     
   }
 `
 
