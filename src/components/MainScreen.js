@@ -35,18 +35,20 @@ function MainScreen() {
             jokes,
             categories,
             getRandomJoke,
-            firstName,
-            lastName,
             setInputValue,
-            setSelectedCategory
+            inputValue,
+            setSelectedCategory,
+            numberOfJokes, 
+            setNumberOfJokes
          }
+
      = useContext(Context)
 
 
-    
     const options = categories.map((item) => { 
         return { value: item, label: item }
     }) 
+
     const  inputChange = (e) => {
         e.preventDefault();
         const newValue = e.target.value
@@ -69,12 +71,25 @@ function MainScreen() {
         })
     };
 
+
+    const increaseNumber = () => {
+        setNumberOfJokes(numberOfJokes + 1);
+        
+    }
+
+    const decreaseNumber = () => {
+        if (numberOfJokes > 1) {
+            setNumberOfJokes(numberOfJokes - 1)
+        }
+        
+    }
+
     const classes = useStyles()
     
     return (
         <Container>
             <MainContainer>
-                {firstName === '' && lastName === '' && categories.length < 1 ? <Image src={Chuck} /> : <Image src={ RandomPhoto }/>}
+                {inputValue.firstName === '' && inputValue.lastName === '' ? <Image src={Chuck} /> : <Image src={ RandomPhoto }/>}
             { isloading === false ? jokes.map((joke) => {
                 return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)}) : <div> Loading...</div> }
             <Form>
@@ -96,9 +111,15 @@ function MainScreen() {
             </DrawButtonContainer>
             <ButtonContainer>
                <ButtonSubContainer>
-                    <Button> <Icon src={Minus} /> </Button>
-                        <IncreaseNumber> 0 </IncreaseNumber>
-                    <Button> <Icon src={Plus} /> </Button>
+                    <Button onClick={increaseNumber}> <Icon src={Minus} /> </Button>
+                        <IncreaseNumber 
+                        type="number" 
+                        placeholder='1' 
+                        value={numberOfJokes} 
+                        onChange={(event) => {
+                            setNumberOfJokes(event.target.value);
+                        }} />
+                        <Button onClick={decreaseNumber}> <Icon src={Plus} /> </Button>
                 </ButtonSubContainer>
                 <SaveButton> Save Jokes </SaveButton>
             </ButtonContainer>

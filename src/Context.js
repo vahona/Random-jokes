@@ -13,18 +13,23 @@ const getUrl = (firstName, lastName, category, numberOfJokes) => {
 
 
 
-    // 3- Impersonate joke/ input field 
+    // 2- Impersonate joke/ input field 
     else if (firstName && lastName) {
         return URL_PREFIX + '/1' + `?firstName=${firstName}` + `&lastName=${lastName}`
     }
 
 
-    // 2- Category selected 
+    // 3- Category selected 
     else if (category) {
         return URL_PREFIX + '/1' + `?exclude=[${category}]`
     }
 
     // 4- Number selected
+
+    else if (numberOfJokes) {
+        return URL_PREFIX + '/1' + `${numberOfJokes}`
+    }
+
     // const numberOfJokes = `${num}`
 }
 
@@ -38,9 +43,11 @@ function ContextProvider({ children }) {
 
 
     // Fetching data
-
     let URL_API_CATEGORY = `http://api.icndb.com/categories`
     const catego = `${categories}`
+
+    let URL_NUMBER_JOKE = `http://api.icndb.com/jokes/`
+    const jokeNumber = `${numberOfJokes}`
 
     let URL_CATEGORY = URL_API_CATEGORY + catego
 
@@ -59,8 +66,20 @@ function ContextProvider({ children }) {
         try {
             const response = await fetch(URL_CATEGORY);
             const dataCategory = await response.json();
-
             setCategories(dataCategory.value);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+
+    let URL_NUMBER_OF_JOKES = URL_NUMBER_JOKE + jokeNumber
+
+    const getNumberOfJokes = async () => {
+        try {
+            const response = await fetch(URL_NUMBER_OF_JOKES);
+            const jokesNumber = await response.json();
+            setNumberOfJokes(jokesNumber.value);
         } catch (e) {
             console.error(e);
         }
@@ -70,6 +89,7 @@ function ContextProvider({ children }) {
     useEffect(() => {
         getRandomJoke();
         getCategoryList();
+        getNumberOfJokes();
         setTimeout(() => setIsloading(false), 1000)
     }, []);
 
@@ -85,7 +105,8 @@ function ContextProvider({ children }) {
             setInputValue,
             setCategories,
             selectedCategory,
-            setSelectedCategory
+            setSelectedCategory,
+            setNumberOfJokes
         }}>
             {children}
         </Context.Provider>

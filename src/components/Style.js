@@ -40,14 +40,37 @@ export const Label = styled.label`
     letter-spacing: -0.52px;
 `
 
-export const IncreaseNumber = styled.div`
+export const IncreaseNumber = styled.input`
+  border: none;
+  background-color: #f5f6f8;
+  width: 23px;
   margin: 2%;
-  margin-top: 11px;
+    ::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    ::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+     &:focus {
+        outline: none;
+     }
+
+     @media (max-width: 550px) {
+     width: 11px;
+     
+  }
 `
 
 export const Icon = styled.img`
   width: 24px;
   height: 24px;
+   @media (max-width: 550px) {
+    width: 12px;
+    height: 12px;
+  }
 `
 
 export const MainContainer = styled.div`
@@ -77,6 +100,11 @@ export const ButtonSubContainer = styled.div`
     height: 45px;
     width: 26.3%;
     justify-content: center;
+     @media (max-width: 550px) {
+     display: block;
+     justify-content: center;
+  }
+    
     
 
 `
@@ -135,12 +163,16 @@ export const DrawButtonContainer = styled.div`
 export const Container = styled.div`
     background-color: #ffff;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
-    width: 40.5%;
+    width: 555px;
     height: 72.2%;
     margin-inline-start: auto;
     margin-inline-end: auto;
     margin-block-start: 4%;
     border-radius: 10px;
+
+    @media (max-width: 600px) {
+     width: 90%;
+  }
 
 `
 
