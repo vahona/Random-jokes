@@ -1,7 +1,8 @@
-import react, { useContext } from 'react'
-import { Contex } from '../Context'
+import  { useContext } from 'react'
+import { Context } from '../Context'
 import Select from 'react-select'
 import Chuck from '../assets/Chuck-Norris-photo@3x.jpg'
+import RandomPhoto from '../assets/Random-photo@3x.jpg'
 import Minus from '../assets/minus.svg';
 import Plus from "../assets/plus.svg";
 
@@ -31,18 +32,15 @@ from "../components/Style";
 function MainScreen() {
     const {
             isloading,
-            setIsloading,
             jokes,
             categories,
+            getRandomJoke,
             firstName,
-            inputValue,
             lastName,
-            setFirstName,
             setInputValue,
-            setLastName,
-            setCategories
+            setSelectedCategory
          }
-     = useContext(Contex)
+     = useContext(Context)
 
 
     
@@ -50,13 +48,16 @@ function MainScreen() {
         return { value: item, label: item }
     }) 
     const  inputChange = (e) => {
+        e.preventDefault();
         const newValue = e.target.value
-        setInputValue({ firstName: newValue, lastName: newValue })
+        const [firstName, lastName] = newValue.split(' ')
+        setInputValue({ firstName: firstName,  lastName: lastName})
+        
     }
 
     const onSelectionChange = (e) => {
         const newValue = e.value
-        setCategories([newValue])
+        setSelectedCategory([newValue])
     }
 
     const Styles = {
@@ -73,7 +74,7 @@ function MainScreen() {
     return (
         <Container>
             <MainContainer>
-            <Image src={Chuck}/>
+                {firstName === '' && lastName === '' && categories.length < 1 ? <Image src={Chuck} /> : <Image src={ RandomPhoto }/>}
             { isloading === false ? jokes.map((joke) => {
                 return (<TextContainer key={joke.value[0].id}>"{joke.value[0].joke}"</TextContainer>)}) : <div> Loading...</div> }
             <Form>
@@ -91,7 +92,7 @@ function MainScreen() {
                 <Label className={classes.label}>Impersonate Chuck Norris</Label>
             </div>
             <DrawButtonContainer>
-                <DrawButton> Draw a random Chuck Norris joke </DrawButton>
+                <DrawButton onClick={getRandomJoke}> Draw a random Chuck Norris joke </DrawButton>
             </DrawButtonContainer>
             <ButtonContainer>
                <ButtonSubContainer>
